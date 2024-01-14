@@ -38,3 +38,27 @@ function getStorage() {
         storage.forEach(storeSearch)
     }
 }
+// Current Conditions of City
+function currentWeather(cityName) {
+    let cityURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey + "&units=imperial"
+
+    fetch(cityURL)
+        .then((response) => response.json())
+        .then((data) => {
+            //Get Informational Data
+            const place = data.name;
+            var today = moment().format('l');
+            const temp = data.main.temp;
+            const wind = data.wind.speed;
+            const humidity = data.main.humidity;
+            storeSearch(cityName)
+
+            //Appends variables into HTML
+            currentCityEl.textContent = place + ' ' + '(' + today + ')'
+            singleDayIcon.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            currentTempEl.textContent = 'Temp: ' + temp + '°F';
+            currentWindSpeedEl.textContent = 'Wind: ' + wind + ' MPH';
+            currentHumidityEl.textContent = 'Humidity: ' + humidity + "%";
+        });
+}
+
