@@ -30,3 +30,11 @@ function storeSearch(cityName) {
 function appendStorage() {
     localStorage.setItem('pastSearch', JSON.stringify(pastSearch))
 }
+
+//Get Past Searches from Local Storage
+function getStorage() {
+    let storage = JSON.parse(localStorage.getItem('pastSearch'));
+    if (storage) {
+        storage.forEach(storeSearch)
+    }
+}
