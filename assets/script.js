@@ -2,6 +2,7 @@ const APIkey = "f792ea86435d6d03093ac74cf0bb3026";
 const formTagEl = document.getElementById('form-test');
 const searchHistoryEl = document.getElementById('search-history');
 const cityNameEl = document.getElementById('city');
+
 //City Display Elements
 const currentTempEl = document.getElementById('temperature');
 const currentCityEl = document.getElementById('city');
@@ -10,6 +11,7 @@ const currentHumidityEl = document.getElementById('humid');
 const searchInputEl = document.getElementById("input");
 const fiveDayEl = document.querySelector('.five-day');
 const singleDayIcon = document.getElementById('single-day-icon');
+
 //Save Searches to Local Storage
 let pastSearch = JSON.parse(localStorage.getItem('pastSearch')) || [];
 
@@ -26,6 +28,7 @@ function storeSearch(cityName) {
         fiveDay(cityName)
     })
 }
+
 //Put Past Searches in LocalStorage
 function appendStorage() {
     localStorage.setItem('pastSearch', JSON.stringify(pastSearch))
@@ -38,6 +41,7 @@ function getStorage() {
         storage.forEach(storeSearch)
     }
 }
+
 // Current Conditions of City
 function currentWeather(cityName) {
     let cityURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey + "&units=imperial"
@@ -62,6 +66,7 @@ function currentWeather(cityName) {
         });
 }
 
+//Displaying 5 Days of Projected Weather Data
 function fiveDay(cityName) {
     let fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIkey + "&units=imperial"
 
@@ -108,3 +113,13 @@ function fiveDay(cityName) {
             }
         });
 }
+
+//Listens for submits and reruns API
+formTagEl.addEventListener('submit', function (event) {
+    event.preventDefault();
+    let cityName = searchInputEl.value
+    currentWeather(cityName)
+    fiveDay(cityName)
+});
+
+window.onload = getStorage();
