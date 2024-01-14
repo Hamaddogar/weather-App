@@ -10,3 +10,19 @@ const currentHumidityEl = document.getElementById('humid');
 const searchInputEl = document.getElementById("input");
 const fiveDayEl = document.querySelector('.five-day');
 const singleDayIcon = document.getElementById('single-day-icon');
+//Save Searches to Local Storage
+let pastSearch = JSON.parse(localStorage.getItem('pastSearch')) || [];
+
+//Store Searched City and Create a Clickable Button
+function storeSearch(cityName) {
+    const pastSearchBtn = document.createElement('button');
+    pastSearchBtn.setAttribute('class', 'btn btn-secondary');
+    pastSearchBtn.innerText = cityName;
+    searchHistoryEl.appendChild(pastSearchBtn);
+
+    pastSearchBtn.addEventListener('click', function () {
+        const cityName = pastSearchBtn.innerText;
+        currentWeather(cityName)
+        fiveDay(cityName)
+    })
+}
