@@ -62,3 +62,49 @@ function currentWeather(cityName) {
         });
 }
 
+function fiveDay(cityName) {
+    let fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIkey + "&units=imperial"
+
+    //Clears Previous 5 day Divs
+    fiveDayEl.innerHTML = ''
+
+    //Five Day URL
+    fetch(fiveDayURL)
+        .then((response) => response.json())
+        .then((fiveDayData) => {
+
+            //Per API settings, gets data for next 5 days
+            for (let i = 3; i <= fiveDayData.list.length; i += 9) {
+                let temp = fiveDayData.list[i].main.temp;
+                let wind = fiveDayData.list[i].wind.speed;
+                let humidity = fiveDayData.list[i].main.humidity;
+                let today = fiveDayData.list[i].dt_txt.split(' ')
+
+                let col = document.createElement('div')
+                let card = document.createElement('div')
+                let todayEl = document.createElement('h2')
+                let icon = document.createElement('img')
+                let temperature = document.createElement('p')
+                let windEl = document.createElement('p')
+                let humidityEl = document.createElement('p')
+
+                col.setAttribute("class", "col");
+                card.setAttribute("class", "fiveDayCard");
+
+                todayEl.textContent = moment(today[0]).format('ddd')
+                icon.src = "https://openweathermap.org/img/wn/" + fiveDayData.list[i].weather[0].icon + ".png"
+                temperature.textContent = 'Temp: ' + temp + '°F'
+                windEl.textContent = 'Wind: ' + wind + " MPH"
+                humidityEl.textContent = "Humidity: " + humidity + "%"
+
+                card.appendChild(todayEl)
+                card.appendChild(icon)
+                card.appendChild(temperature)
+                card.appendChild(windEl)
+                card.appendChild(humidityEl)
+
+                col.appendChild(card)
+                fiveDayEl.appendChild(col)
+            }
+        });
+}
