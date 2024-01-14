@@ -122,4 +122,4 @@ formTagEl.addEventListener('submit', function (event) {
     fiveDay(cityName)
 });
 
-window.onload = getStorage();
+window.onload = getStorage(); d

@@ -48,6 +48,3 @@ THEN I am again presented with current and future conditions for that city
 ## Installation
 1. Download/clone repository to local machine
 2. Open index.html in default browser
-
-# License
-MIT © Krenbot
