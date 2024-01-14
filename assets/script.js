@@ -43,7 +43,7 @@ function currentWeather(cityName) {
     let cityURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey + "&units=imperial"
 
     fetch(cityURL)
-        .then((response) => responss.json())
+        .then((response) => response.json())
         .then((data) => {
             //Get Informational Data
             const place = data.name;
