@@ -26,3 +26,7 @@ function storeSearch(cityName) {
         fiveDay(cityName)
     })
 }
+//Put Past Searches in LocalStorage
+function appendStorage() {
+    localStorage.setItem('pastSearch', JSON.stringify(pastSearch))
+}
